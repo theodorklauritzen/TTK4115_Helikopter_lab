@@ -49,3 +49,16 @@
     \ddot{\lambda} &= K_3 V_s p\\
 \end{align*}
 
+\subsection{Problem 3 - PD control}
+
+\begin{align*}
+    V_d &= K_{pp} (p_c - p) - K_{pd} \dot{p}\\
+    \ddot{p} &= K_1 (K_{pp} (p_c - p) - K_{pd} \dot{p})\\
+    S^2 p &= K_1 K_{pp} p_c - K_1 K_{pp} p - K_1 K_{pd} S p\\
+    (S^2 + K_1 K_{pd} S + K_1 K_{pp}) p &= K_1 K_{pp} p_c\\
+    \frac{p}{p_c} &= \frac{K_1 K_{pp}}{S^2 + K_1 K_{pd} S + K_1 K_{pp}}\\
+    G(s) &= \frac{K_1 K_{pp}}{S^2 + K_1 K_{pd} S + K_1 K_{pp}}\\
+\end{align*}
+
+\subsection{Problem 4 - Pole Placement}
+
