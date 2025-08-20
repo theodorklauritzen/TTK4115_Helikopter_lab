@@ -69,3 +69,20 @@
 
 \subsection{Problem 4 - Pole Placement}
 
+\begin{align*}
+    (s - \lambda_1) (s - \lambda_2) &= s^2 - (\lambda_1 + \lambda_2) s + \lambda_1 \lambda_2\\
+    s^2 - (\lambda_1 + \lambda_2) s + \lambda_1 \lambda_2 &= s^2 + K_1 K_{pd} s + K_1 K_{pp}\\
+    K_1 K_{pp} &= \lambda_1 \lambda_2\\
+    K_{pp} &= \frac{\lambda_1 \lambda_2}{K_1}\\
+    K_1 K_{pd} &= -(\lambda_1 + \lambda_2)\\
+    K_{pd} &= \frac{-(\lambda_1 + \lambda_2)}{K_1}\\
+\end{align*}
+
+TODO: Now we want to formulate a hypothesis of how different choices of pole-values will affect the
+physical helicopter. 
+How should the response of the helicopter be in theory? 
+Is the response of the physical helicopter as we expect it to be in theory? 
+What are the differences between theory and practice here, and why?
+
+Make a test plan for different values of $\lambda$. Test what types of behaviour can be achieved by placing the two poles in different places.
+Hint: Some keywords you might want to consider for your hypothesis: stable, unstable, saturation, damped, oscillations, etc...
