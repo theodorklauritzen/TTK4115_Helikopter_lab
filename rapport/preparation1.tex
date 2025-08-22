@@ -62,10 +62,10 @@
 \begin{align*}
     V_d &= K_{pp} (p_c - p) - K_{pd} \dot{p}\\
     \ddot{p} &= K_1 (K_{pp} (p_c - p) - K_{pd} \dot{p})\\
-    S^2 p &= K_1 K_{pp} p_c - K_1 K_{pp} p - K_1 K_{pd} S p\\
-    (S^2 + K_1 K_{pd} S + K_1 K_{pp}) p &= K_1 K_{pp} p_c\\
-    \frac{p}{p_c} &= \frac{K_1 K_{pp}}{S^2 + K_1 K_{pd} S + K_1 K_{pp}}\\
-    G(s) &= \frac{K_1 K_{pp}}{S^2 + K_1 K_{pd} S + K_1 K_{pp}}\\
+    s^2 p &= K_1 K_{pp} p_c - K_1 K_{pp} p - K_1 K_{pd} s p\\
+    (s^2 + K_1 K_{pd} s + K_1 K_{pp}) p &= K_1 K_{pp} p_c\\
+    \frac{p}{p_c} &= \frac{K_1 K_{pp}}{s^2 + K_1 K_{pd} s + K_1 K_{pp}}\\
+    G(s) &= \frac{K_1 K_{pp}}{s^2 + K_1 K_{pd} s + K_1 K_{pp}}\\
 \end{align*}
 
 \subsection{Problem 4 - Pole Placement}
@@ -95,3 +95,27 @@ pol(-0.5+j, 0.5-j)
 pol(-j, j) Oscillations
 
 
+
+
+\subsection{Constants}
+
+\begin{tabular}{ c|c } 
+    $F_f$ & $K_f V_f$ \\ 
+    $F_b$ & $K_f V_b$ \\ 
+    \hline
+    $V_s$ & $V_b + V_f$ \\
+    $V_d$ & $V_b - V_f$ \\ 
+    \hline
+    $J_p$ & $2 m_p l_p^2$ \\
+    $J_e$ & $m_c l_c^2 + 2 m_p l_h^2$ \\
+    $J_\lambda$ & $m_c l_c^2 + 2 m_p (l_h^2 + l_p^2)$ \\
+    \hline
+    $L_1$ & $l_p K_f$ \\
+    $L_2$ & $l_h (F_{g,f} + F_{g,b}) + l_c F_{g,c}$ \\
+    $L_3$ & $l_h K_f$ \\
+    $L_4$ & $l_h K_f$ \\
+    \hline
+    $K_1$ & $L_1 / J_p$ \\
+    $K_2$ & $L_3/J_e$ \\
+    $K_3$ & $L_4/J_\lambda$ \\
+\end{tabular}
