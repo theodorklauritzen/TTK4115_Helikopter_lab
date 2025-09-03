@@ -25,7 +25,7 @@ The test plan is to test the step response of the helicopter with different pole
     \label{tab:ld1:testplan}
 \end{table}
 
-The points where picked to show different types of responses. The expected result is that poles in the right half-plane will result in a unstable system, where the pitch will go further and further away from the reference.
+The points were picked to show different types of responses. The expected result is that poles in the right half-plane will result in a unstable system, where the pitch will go further and further away from the reference.
 
 The points that are not at the real axis is expected to create som oscilations. In the test case where the poles are at the imaginary axis, standing oscilations are expected.
 
@@ -38,7 +38,7 @@ The points that are not at the real axis is expected to create som oscilations. 
     \label{fig:ld1:poles_-1,-1}
 \end{figure}
 
-\autoref{fig:ld1:poles_-1,-1} shows a stable response, that rises fast, however the system never reaches the target.
+\autoref{fig:ld1:poles_-1,-1} shows a stable response that rises fast, however the system never reaches the target. Indicating a stationary offset. In addition it was not expected that the pitch would go bellow $0$ after the last step function.
 
 \begin{figure}[h]
     \centering
@@ -47,12 +47,16 @@ The points that are not at the real axis is expected to create som oscilations. 
     \label{fig:ld1:poles_-0.5+j,-0.5-j}
 \end{figure}
 
+\autoref{fig:ld1:poles_-0.5+j,-0.5-j} shows a response that rises faster than in \autoref{fig:ld1:poles_-1,-1}, and with minimal oscialtions. However these oscilation can be noise.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5,-2.eps}
     \caption{The plot shows the response with poles set to $-0.5$ and $-2$.}
     \label{fig:ld1:poles_-0.5,-2}
 \end{figure}
+
+\autoref{fig:ld1:poles_-0.5,-2} show a response that more slowly reaches the reference. This can be a result of a over dampened system, which is expected with two negative poles at the real axis.
 
 \begin{figure}[h]
     \centering
@@ -61,9 +65,13 @@ The points that are not at the real axis is expected to create som oscilations. 
     \label{fig:ld1:poles_j,-j}
 \end{figure}
 
+\autoref{fig:ld1:poles_j,-j} shows a response with large oscialtions. The expected response is standing oscilations, which almost matches the actual response. However the oscialtions start before the step in the reference, which can be a result of some disturbances in the system. The actual oscialtions was also increasing in amplitude a bit, which led the system to crash, therefore the experiment was stopped a bit early.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\linewidth]{figures/labday1/1,1.eps}
     \caption{The plot shows the response with poles set to $1$ and $1$. The experiment was manually stopped, after multiple crashes.}
     \label{fig:ld1:poles_1,1}
 \end{figure}
+
+\autoref{fig:ld1:poles_1,1} show a unstable plot, where a small disturbance make the pitch increase exponentially. This lead to a fast crash and the experiment was stopped. The result was expected since the poles was in the right half-plane.
