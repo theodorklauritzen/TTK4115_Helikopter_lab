@@ -1,5 +1,45 @@
 \section{Introduction}\label{sec:Intro_new}
 
+This lab is split in four parts; Use of monovariable control, use of multivariable control, use of a Luenberger observer, and lastly the Kalman filter. The monovariable control concerns non-optimal tuning of a PD controller, while multivariable control concerns optimal tuning of a multivariable controller called LQR. The use of a Luenberger observer concerns the implementation of an non-optimal estimator using measurements from an interial measurement unit (IMU), while the use of a Kalman filter concerns the implementation of an optimal estimator using
+measurements from the IMU
+
+All of these parts contribute to implement and test linear concepts around linear system theory. Throughout the lab the helicopter will become more advanced, and it will contain implementation of controllers and estimators, and
+measurements from an inertial measurement unit. We will learn through hypotheses, test plans and experiments, which will be showcased in the report. Throughout the lab we will extend our understanding of controllers and estimators,
+both in terms of them being non-optimal or optimal. Additionally the lab will make us aware of limitations and
+possibilities when including observations/measurements from instruments like an inertial measurement unit.
+
+The helicopter consists of a base on which a long arm is attached; see Fig. The helicopter
+head, with two motors and propellers, is attached to one side of the arm. On the other side, a
+counterweight is placed. The helicopter has three rotational joints. The helicopter arm can rotate
+about the vertical axis. This will be referred to as the travel of the helicopter. The helicopter
+head can move up and down with respect to the base. This rotation of the helicopter arm will be
+referred to as the elevation of the helicopter. Moreover, the helicopter head can tilt with respect
+to the arm, which will be referred to as the pitch of the helicopter. The joint angles for pitch, elevation, and travel
+are measured using special counter circuits to read the encoders on the helicopter. The helicopter is actuated by the two motors on the helicopter head,
+which are connected to the propellers. The control
+signals (motor voltages) are set using a digital-to-analog converter (DAC). This signal is amplified
+by a linear amplifier inside the power supply and fed to the motors. A model of the helicopter showcasing the axes and forces can bee seen in Fig 
+\begin{figure}
+
+\end{figure}
+
+
 Your introduction should contain an overview of the work you were assigned, as well as a few sentences putting the work into a larger perspective. You can introduce the helicopter set-up such that it is easier to refer to specific variables later in the report. You should also give a quick description of how the report is organized.
 
 You should of course put most of the work into doing good work in the lab and then presenting it in the report. When presenting your work in the report, both content and presentation/layout matters. Since your only way of communicating your good effort in the lab is through writing about it here, the way you write about it is essential. This means that even if you have a really good controller or an interesting experiment but describe it poorly, you will probably not be rewarded for the results. A plot showing perfect control is worth very little if it is not accompanied by a clear description of what it represents.
+
+
+The helicopter lab is meant to be an arena for you to implement and test the theoretical concepts
+covered in the lectures on a real physical system. You will be asked to complete a set of tasks,
+each focusing on separate topics in the course. As you complete these tasks, the helicopter
+will be gradually more advanced, with the implementation of controllers and estimators, and
+measurements from an inertial measurement unit. To fully grasp the content of the course we
+highly encourage you to experiment and be creative in your assigned lab time-slot. If you have
+an idea of how to improve your system, or if you see something interesting to investigate further,
+we encourage you to test it out! Remember to write about it in the report.
+Throughout the lab you will be asked to experiment according to your hypotheses and testplans developed in the lab preparation assignment. The experiments should be done systematically and thorough, but not unnecessarily long. Remember that it is allowed to revise your
+test-plan when you gain experience from testing the system.
+At the end of the lab we want you to understand the concepts of controllers and estimators,
+both in terms of them being non-optimal or optimal. Additionally be aware of limitations or
+possibilities when including observations/measurements from instruments like an inertial
+measurement unit.
