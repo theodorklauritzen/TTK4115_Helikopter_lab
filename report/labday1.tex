@@ -7,37 +7,63 @@
     \item Conclusion. Include a short paragraph summarizing the results. 
 \end{itemize}
 
+The goal of this task is to control the pitch of the helicopter with a PD-regulator, and set the poles to specific values. To set the poles a model of he helicopter is needed, which was prepared in the preparations. The model was derived by physical laws, and then linearized.
+
+The test plan is to test the step response of the helicopter with different pole placement. To test the step response the reference is set to $0.5$ after $10$ second, and then to $0$ after 15 seconds, and the test is ended after $30$ seconds. The regulator parementers was calculated based on these poles. \autoref{tab:ld1_testplan} shows the plan of which poles to test.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ l|l } 
+        Poles & Expected state \\ \hline
+        pol(-1,-1) & Stable \\
+        pol(-0.5, -2) & Over dampened \\
+        pol(-0.5+j, -0.5-j) & Under dampened \\
+        pol(-j, j) & Oscillations \\
+        pol(1, 1) & Unstable \\
+    \end{tabular}
+    \caption{The different poles to test.}
+    \label{tab:ld1:testplan}
+\end{table}
+
+The points where picked to show different types of responses. The expected result is that poles in the right half-plane will result in a unstable system, where the pitch will go further and further away from the reference.
+
+The points that are not at the real axis is expected to create som oscilations. In the test case where the poles are at the imaginary axis, standing oscilations are expected.
+
+\subsection{Results}
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/-1,-1.png}
+    \includegraphics[width=0.5\linewidth]{figures/labday1/-1,-1.eps}
     \caption{The plot shows the response with poles set to $-1$ and $-1$.}
-    \label{fig:ld1_poles_-1,-1}
+    \label{fig:ld1:poles_-1,-1}
 \end{figure}
+
+\autoref{fig:ld1:poles_-1,-1} shows a stable response, that rises fast, however the system never reaches the target.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5+j,-0.5-j.png}
+    \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5+j,-0.5-j.eps}
     \caption{The plot shows the response with poles set to $-0.5+j$ and $-0.5 - j$.}
-    \label{fig:ld1_poles_-0.5+j,-0.5-j}
+    \label{fig:ld1:poles_-0.5+j,-0.5-j}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5,-2.png}
+    \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5,-2.eps}
     \caption{The plot shows the response with poles set to $-0.5$ and $-2$.}
-    \label{fig:ld1_poles_-0.5,-2}
+    \label{fig:ld1:poles_-0.5,-2}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/j,-j.png}
+    \includegraphics[width=0.5\linewidth]{figures/labday1/j,-j.eps}
     \caption{The plot shows the response with poles set to $j$ and $-j$. The experminet was manually stopped, after a crash.}
-    \label{fig:ld1_poles_j,-j}
+    \label{fig:ld1:poles_j,-j}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/1,1.png}
+    \includegraphics[width=0.5\linewidth]{figures/labday1/1,1.eps}
     \caption{The plot shows the response with poles set to $1$ and $1$. The experiment was manually stopped, after multiple crashes.}
-    \label{fig:ld1_poles_1,1}
+    \label{fig:ld1:poles_1,1}
 \end{figure}
