@@ -17,8 +17,33 @@
     \end{bmatrix}\\
     \ddot{p}&=K_1 V_d \\
     \ddot{e}&=K_2 \tilde{V_s}\\
+    \dot{x}=
+    \begin{bmatrix}
+        0&1&0 \\
+        0&0&0 \\
+        0&0&0 \\
+    \end{bmatrix}
+    x+
+    \begin{bmatrix}
+        0&0 \\
+        0&K_1 \\
+        K_2&0
+    \end{bmatrix}
+    \begin{bmatrix}
+        \tilde{V_s} \\
+        V_d
+    \end{bmatrix}\\
 \end{align*}
+
 \subsection{Problem 2 - Controllability}
 \subsection{Problem 3 - Feedback and feedforward}
 \subsection{Problem 4 - Linear Quadratic Regulator (LQR)}
 \subsection{Problem 5 - Integral action}
+
+
+K_1=
+K_2=
+
+A=[0,1,0;0,0,0;0,0,0];
+B=[0,0;0,K_1;K_2,0];
+
