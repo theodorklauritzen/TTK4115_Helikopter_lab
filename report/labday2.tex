@@ -5,3 +5,164 @@
     \item Include the results from the experiments that were done in the lab according to the test-plan, and any other tests you found interesting during your time in the lab. Include plots and discuss the result. This is the most important part of the report. How you structure this part of the report is up to you. 
     \item Conclusion. Include a short paragraph summarizing the results.
 \end{itemize}
+
+The purpose of this task is to control the helicopter using LQR control. To do so, we first need to find the state space representation.
+
+\begin{align*}
+    \dot{x}&=Ax+Bu \\
+    x&=
+    \begin{bmatrix}
+        p \\
+        \dot{p} \\
+        \dot{e} \\
+    \end{bmatrix}
+    \text{ and } u=
+    \begin{bmatrix}
+        \tilde{V_s} \\
+        V_d
+    \end{bmatrix}\\
+    \ddot{p}&=K_1 V_d \\
+    \ddot{e}&=K_2 \tilde{V_s}\\
+    \dot{x}&=
+    \begin{bmatrix}
+        0&1&0 \\
+        0&0&0 \\
+        0&0&0 \\
+    \end{bmatrix}
+    x+
+    \begin{bmatrix}
+        0&0 \\
+        0&K_1 \\
+        K_2&0
+    \end{bmatrix}
+    \begin{bmatrix}
+        \tilde{V_s} \\
+        V_d
+    \end{bmatrix}\\
+\end{align*}
+
+
+Then we need to make sure that 
+\begin{equation*}
+    \lim_{t \to \infty} \implies \dot{x} = 0 \text{ and } x = \left[
+    \begin{array}{c}
+        p_c \\
+        0 \\
+        \dot{e}_c
+    \end{array}
+    \right]
+\end{equation*}
+This gives the equation
+\begin{align*}
+    \dot{x} &= Ax + Bu \\
+    &= (A - BK)x + BFr \\
+    &= 0
+\end{align*}
+And solved for F we get
+\begin{equation*}
+    F =
+    \begin{bmatrix}
+        k_{11} & k_{13} \\
+        k_{21} & k_{23}
+    \end{bmatrix}
+\end{equation*}
+
+Such that
+\begin{equation*}
+    \lim_{t \to \infty} 
+    \begin{bmatrix}
+        p \\
+        \dot{e}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        p_c \\
+        \dot{e_c}
+    \end{bmatrix}
+\end{equation*}
+
+Hypotheses and test plan for both the 3-state and the 5-state LQR:
+A high q/r will give a fast response, but with a high energy drainage. Can expect some overswing as that is a waste of energy. A low q/r will give a slow response where you minimize the amount of energy spent.
+
+This is our overarching test plan:
+\begin{itemize}
+    \item Try 10 on all diagonals
+    \item try high q
+    \item try high r
+    \item try different values inside of q and r
+\end{itemize}
+
+\subsection{Three-state LQR Control}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Test values for 3 state LQR}
+    \begin{tabular}{c|ccccc}
+        \textbf{Test} & \( Q_p \) & \( Q_{\dot{p}} \) & \( Q_{\dot{e}} \) & \( R_{\tilde{V}_s} \) & \( R_{V_d} \) \\
+        \hline
+        1  & 10  & 10  & 10  & 10  & 10  \\
+        2  & 200 & 10  & 10  & 10  & 10  \\
+        3  & 10  & 200 & 10  & 10  & 10  \\
+        4  & 10  & 10  & 200 & 10  & 10  \\
+        5  & 10  & 10  & 10  & 200 & 10  \\
+        6  & 10  & 10  & 10  & 10  & 200 \\
+        7  & 200 & 200 & 200 & 10  & 10  \\
+        8 & 10  & 10  & 10  & 200 & 200 \\
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|l|l}
+        Test & Hypotesis & Result \\
+        \hline
+        1 & The & the \\
+    \end{tabular}
+\end{table}
+
+% Helper function to plot subfigures fast
+% #1 = path prefix, #2 = number of figures
+\newcommand{\insertsubfigs}[2]{%
+  \foreach \i in {1,...,#2}{%
+    \begin{subfigure}{0.40\textwidth}
+      \includegraphics[width=\textwidth]{#1\i.eps}
+      \caption{Results for test \i.}
+    \end{subfigure}
+  }%
+}
+
+\begin{figure}[h!]
+    \centering
+    \insertsubfigs{figures/labday2/3state/plot_}{8}
+    \caption{Step response for the three-state LQR regulator.}
+    \label{fig:LQR_3state}
+\end{figure}
+
+\subsection{Five-state LQR Control}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Test values for 5 state LQR}
+    \begin{tabular}{c|ccccccc}
+        \textbf{Test} & \( Q_p \) & \( Q_{\dot{p}} \) & \( Q_{\dot{e}} \) & \( Q_{\dot{\gamma}} \) & \( Q_{\dot{\zeta}} \) & \( R_{\tilde{V}_s} \) & \( R_{V_d} \) \\
+        \hline
+        1  & 10  & 10  & 10  & 10  & 10  & 10  & 10  \\
+        2  & 200 & 10  & 10  & 10  & 10  & 10  & 10  \\
+        3  & 10  & 200 & 10  & 10  & 10  & 10  & 10  \\
+        4  & 10  & 10  & 200 & 10  & 10  & 10  & 10  \\
+        5  & 10  & 10  & 10  & 200 & 10  & 10  & 10  \\
+        6  & 10  & 10  & 10  & 10  & 200 & 10  & 10  \\
+        7  & 10  & 10  & 10  & 10  & 10  & 200 & 10  \\
+        8  & 10  & 10  & 10  & 10  & 10  & 10  & 200 \\
+        9  & 200 & 200 & 200 & 200 & 200 & 10  & 10  \\
+        10 & 10  & 10  & 10  & 10  & 10  & 200 & 200 \\
+    \end{tabular}
+\end{table}
+
+
+\begin{figure}[h]
+    \centering
+    \insertsubfigs{figures/labday2/5state/plot_}{10}
+    \caption{Step response for the five-state LQR regulator.}
+    \label{fig:LQR_5state}
+\end{figure}
