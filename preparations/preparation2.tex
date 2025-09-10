@@ -36,8 +36,106 @@
 \end{align*}
 
 \subsection{Problem 2 - Controllability}
+
+\begin{lstlisting}[language=Matlab]
+A=[
+    0,1,0;
+    0,0,0;
+    0,0,0
+];
+B=[
+    0,0;
+    0,K_1;
+    K_2,0
+];
+
+Co = ctrb(A, B);
+
+rank(Co) => 3
+\end{lstlisting}
+
 \subsection{Problem 3 - Feedback and feedforward}
+
+\begin{equation*}
+    t \rightarrow \infty \implies \dot{x} = 0 \text{ and } x = \left[
+    \begin{array}{c}
+        p_c \\
+        0 \\
+        \dot{e}_c
+    \end{array}
+    \right]
+\end{equation*}
+
+\begin{align*}
+    \dot{x} &= Ax + Bu \\
+    &= (A - BK)x + BFr \\
+    &= 0
+\end{align*}
+
+\begin{equation*}
+    F =
+    \begin{bmatrix}
+        k_{11} & k_{13} \\
+        k_{21} & k_{23}
+    \end{bmatrix}
+\end{equation*}\\
+Gives that
+\begin{equation*}
+    \lim_{t \to \infty} 
+    \begin{bmatrix}
+        p \\
+        \dot{e}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        p_c \\
+        \dot{e_c}
+    \end{bmatrix}
+\end{equation*}
+
+
 \subsection{Problem 4 - Linear Quadratic Regulator (LQR)}
+A high q/r will give a fast response, but with a high energy drainage. Can expect some overswing as that is a waste of energy. A low q/r will give a slow response where you minimize the amount of energy spent.
+
+Test plan:
+\begin{itemize}
+    \item Try 1 on all diagonals
+    \item try high q
+    \item try high r
+    \item try different values inside of q and r
+\end{itemize}
+
 \subsection{Problem 5 - Integral action}
+Now we also want to minimize the error. But will still assume the same results as in task 4.
+\begin{equation*}
+    A =
+    \begin{bmatrix}
+        0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 \\
+        -1 & 0 & 0 & 0 & 0 \\
+        0 & 0 & -1 & 0 & 0 \\
+    \end{bmatrix}
+\end{equation*}
 
+\begin{equation*}
+    B =
+    \begin{bmatrix}
+        0 & 0 \\
+        0 & K_1 \\
+        K_2 & 0 \\
+        0 & 0 \\
+        0 & 0 \\
+    \end{bmatrix}
+\end{equation*}
 
+\begin{equation*}
+    G =
+    \begin{bmatrix}
+        0 & 0 \\
+        0 & 0 \\
+        0 & 0 \\
+        1 & 0 \\
+        0 & 1 \\
+    \end{bmatrix}
+\end{equation*}
