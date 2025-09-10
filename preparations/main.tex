@@ -3,7 +3,7 @@
 \usepackage[norsk]{babel}
 \usepackage{float}
 
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \newcommand\todo[1]{\textcolor{red}{#1}}
 
 \usepackage{graphicx}
@@ -13,6 +13,19 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{listings}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  keywordstyle=\color{blue},
+  commentstyle=\color{OliveGreen},
+  stringstyle=\color{red},
+  breaklines=true,
+  xleftmargin=1cm,
+  xrightmargin=1cm
+}
 
 \usepackage[parfill]{parskip} % This prevents tab indent at new paragraphs
 
