@@ -6,3 +6,45 @@
     \item Include the results from the experiments that were done in the lab according to the test-plan, and any other tests you found interesting during your time in the lab. Include plots and discuss the result. This is the most important part of the report. How you structure this part of the report is up to you. 
     \item Conclusion. Include a short paragraph summarizing the results. 
 \end{itemize}
+
+Given the system
+\begin{equation*}
+    \begin{bmatrix}
+        \dot{p} \\
+        \ddot{p} \\
+        \dot{e} \\
+        \ddot{e} \\
+        \ddot{\lambda}
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+        0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 0 & 0 \\
+        K_3 & 0 & 0 & 0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        p \\
+        \dot{p} \\
+        e \\
+        \dot{e} \\
+        \dot{\lambda}
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        0 & 0 \\
+        0 & K_1 \\
+        0 & 0 \\
+        K_2 & 0 \\
+        0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        \tilde{V_s} \\
+        V_d
+    \end{bmatrix}
+\end{equation*}
+
+We need to measure ($p$ or $\dot{p}$) and ($e$ or $\dot{e}$) and $\lambda$ to be observe the whole system. We need to measure all these states since they are disconnected systems, and therefore need different measurements.
+
+
