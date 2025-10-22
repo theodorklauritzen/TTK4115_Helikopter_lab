@@ -4,7 +4,7 @@ close all;
 
 init_heli_3_10;
 
-filename = "heli_q8";
+filename = "labday3_2";
 test_folder = 'result';
 name_x_k = "x_k";
 name_u_k = "u_k";
@@ -12,16 +12,13 @@ name_u_k = "u_k";
 should_save = true;
 
 testValues = [
-    10, 10, 10, 10, 10,10,10;
-    200, 10, 10, 10, 10,10,10;
-    10, 200, 10, 10, 10,10,10;
-    10, 10, 200, 10, 10,10,10;
-    10, 10, 10, 200, 10,10,10;
-    10, 10, 10, 10, 200,10,10;
-    10, 10, 10, 10, 10,200,10;
-    10, 10, 10, 10, 10, 10,200;
-    200, 200, 200, 200, 200, 10, 10;
-    10, 10, 10, 10, 10, 200, 200
+    -1, -1, -1, -1, -1;
+    -100, -100, -100, -100, -100;
+    0, 0, 0, 0, 0;
+    1, 1, 1, 1, 1;
+    1j, -1j, -1, -1, -1;
+    -1+1j, -1-1j, -10, -10, -10;
+    -20,-20,-20,-20,-20;
 ];
 
 num_tests = size(testValues, 1);
@@ -34,15 +31,9 @@ load_system(filename);
 %set_param(filename, 'StopTime', stop_time);
 
 for index_test = indexes
-    Q = diag(testValues(index_test, 1:5));
-    R = diag(testValues(index_test, 6:7));
-    % Calculate optimal input
-    K=lqr(A,B,Q,R);
+    pole_vector=testValues(index_test, :);
 
-    F = [
-        K(1,1),K(1,3);
-        K(2,1),K(2,3)
-    ];
+    L=place(A_hat',C_hat',pole_vector).';
 
     msg = sprintf("Starting test %d", index_test);
     disp(msg);
@@ -78,5 +69,5 @@ for index_test = indexes
         exportgraphics(fig1, plotFilenamePng, 'Resolution', 300);
     end
     
-    pause(30);
+    pause(10);
 end

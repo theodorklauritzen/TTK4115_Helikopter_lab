@@ -9,14 +9,20 @@
 % Updated fall 2010, Dominik Breu
 % Updated fall 2013, Mark Haring
 % Updated spring 2015, Mark Haring
-
+clear;
+clc;
 
 %%%%%%%%%%% Calibration of the encoder and the hardware for the specific
 %%%%%%%%%%% helicopter
 Joystick_gain_x = 1;
 Joystick_gain_y = -1;
-e_offset = 0.51;
-V_s0 = 7.65;
+%e_offset = 0.51;   %Helikopter 5
+%V_s0 = 7.65;       %Helikopter 5
+
+e_offset = 0.52;    %Helikopter 7
+V_s0 = 7.3;           %Helikopter 7
+lambda_acc_offset = -0.08; % Helikopter 7
+pitch_offset = 0.04;
 
 
 
@@ -75,6 +81,8 @@ stop_time = 30;
 pole_1 = -0.7+1j;
 pole_2 = -0.7-1j;
 
+
+
 K_pp = pole_1 * pole_2 / K_1;
 K_pd = -(pole_1 + pole_2) / K_1;
 
@@ -109,3 +117,30 @@ R=[10,0;
     0,10];
 
 K=lqr(A,B,Q,R);
+
+PORT = 5;
+
+%Luenberger observer
+A_hat=[0,  1,0,0,0;
+       0,  0,0,0,0;
+       0,  0,0,1,0;
+       0,  0,0,0,0;
+       K_3,0,0,0,0];
+    
+    
+B_hat=[0,  0;
+       0,  K_1;
+       0,  0;
+       K_2,0;
+       0,  0];
+
+C_hat=[
+       0,0,1,0,0;
+       0,0,0,0,1];
+
+
+
+pole_vector=[-100,-100,-50,-50,-75];
+
+L=place(A_hat',C_hat',pole_vector).';
+
