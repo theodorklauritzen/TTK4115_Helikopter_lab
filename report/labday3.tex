@@ -86,13 +86,17 @@ Then we have chosen to test different combinations of poles:
 7 $(-20,\,-20,\,-20,\,-20,\,-20)$ \\
 \bottomrule
 \end{tabular}
-Our hypothesis is that test 1, 2, 6 and 7 is stable, but that test 6 has a lot of oscillation. We also think that and that test 3 and test 6 is marginally stable, while test 4 should be unstable.
-
 \caption{Poles for different test numbers corresponding to $p, \dot{p}, e, \dot{e}, \dot{\lambda}$.}
 \label{tab:poles}
 \end{table}
-
-
+Our hypothesis is that test 1, 2, 6 and 7 is stable, but that test 6 has a lot of oscillation. We also think that and that test 3 and test 5 is marginally stable, while test 4 should be unstable.\newline \newline
+\begin{figure}[h!]
+    \centering
+    \insertsubfigs{figures/labday3/fullC/plot_}{7}
+    \caption{Step response for regulator with luenberger observer.}
+    \label{fig:luenbergerPlot}
+\end{figure}
+From \ref{fig:luenbergerPlot} we see that our hypothesis was somewhat right. For the real negative poles, test 1 was unstable, probably because the low-pass effect was too low. Test 2 and 7 were stable, but somewhat wierd towards the end. Test 6 had oscillations, as expected. Test 3 and Test 5 were both unstable, probably because of noise in the observer. Test 4 was unstable as expected.
 \begin{equation}
     \mathbf{\dot{\hat{x}}}=\mathbf{A\hat{x}+Bu + L}\mathbf{(y-C\hat{x}})
 \end{equation}
@@ -116,3 +120,4 @@ or
     \end{bmatrix}
 \end{equation}
 Using the first suggested C requires derivation, while using the second suggested C recuires integration
+Result: None of these matrices worked.
