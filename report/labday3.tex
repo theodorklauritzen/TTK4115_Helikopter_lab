@@ -45,12 +45,74 @@ Given the system
     \end{bmatrix}
 \end{equation*}
 
-We need to measure ($p$ or $\dot{p}$) and ($e$ or $\dot{e}$) and $\lambda$ to be observe the whole system. We need to measure all these states since they are disconnected systems, and therefore need different measurements.
-
-We managed to measure the pitch and elevation using the accelerometer. One limitation is that if the helicopter is acceleration this will introduce error in our measurements in our pitch and elevation estimates, since an acceleration of the helicopter will affect the accelerometer.
-
-One disadvantage our using the gyroscope to find the angle velocities, is that we want to find the angle velocities in reference frame locked to the table, and not the body frame of the helicopter.  Therefore we need to transform the readings from the gyroscope from the body frame to the table frame.
 
 
+We managed to measure the pitch and elevation using the accelerometer. One limitation is that if the helicopter is accelerated, this will introduce error in our measurements in our pitch and elevation estimates, since an acceleration of the helicopter will affect the accelerometer. The pitch and elevation can be found from the acceleration through these formulas:
+\begin{equation}
+p = \arctan\left( \frac{a_y}{a_z} \right)
+\end{equation}
+
+\begin{equation}
+e = \arctan\left( \frac{a_x}{\sqrt{a_y^2 + a_z^2}} \right)
+\end{equation}
 
 
+One disadvantage of using the gyroscope to find the angle velocities is that we want to find the angle velocities in reference frame locked to the table, and not the body frame of the helicopter.  Therefore we need to transform the readings from the gyroscope from the body frame to the table frame.
+
+ We have chosen to use this C matrix.:
+ \begin{equation}
+    \mathbf{C}=
+    \begin{bmatrix}
+        1&0&0&0&0\\
+        0&1&0&0&0\\
+        0&0&1&0&0\\
+        0&0&0&1&0\\
+        0&0&0&0&1
+    \end{bmatrix}
+\end{equation}
+Then we have chosen to test different combinations of poles:
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c}
+\toprule
+\textbf{Test no.} & \textbf{Pole vector} \\
+\midrule
+1 & $(-1,\,-1,\,-1,\,-1,\,-1)$ \\
+2 & $(-100,\,-100,\,-100,\,-100,\,-100)$ \\
+3 & $(0,\,0,\,0,\,0,\,0)$ \\
+4 & $(1,\,1,\,1,\,1,\,1)$ \\
+5 & $(j,\,-j,\,-1,\,-1,\,-1)$ \\
+6 & $(-1 +j,\,-1 -j,\,-1,\,-1,\,-1)$ \\
+7 $(-20,\,-20,\,-20,\,-20,\,-20)$ \\
+\bottomrule
+\end{tabular}
+Our hypothesis is that test 1, 2, 6 and 7 is stable, but that test 6 has a lot of oscillation. We also think that and that test 3 and test 6 is marginally stable, while test 4 should be unstable.
+
+\caption{Poles for different test numbers corresponding to $p, \dot{p}, e, \dot{e}, \dot{\lambda}$.}
+\label{tab:poles}
+\end{table}
+
+
+\begin{equation}
+    \mathbf{\dot{\hat{x}}}=\mathbf{A\hat{x}+Bu + L}\mathbf{(y-C\hat{x}})
+\end{equation}
+If we only have to measure the minimum amount of states, we have to measure ($p$ or $\dot{p}$) and ($e$ or $\dot{e}$) and $\lambda$ to observe the whole system. We need to measure all these states since they are disconnected systems, and therefore need different measurements.
+This gives for instance a C matrix that looks like this:
+\begin{equation}
+    \mathbf{C}=
+    \begin{bmatrix}
+        1&0&0&0&0\\
+        0&0&1&0&0\\
+        0&0&0&0&1
+    \end{bmatrix}
+\end{equation}
+or 
+\begin{equation}
+    \mathbf{C}=
+    \begin{bmatrix}
+        0&1&0&0&0\\
+        0&0&0&1&0\\
+        0&0&0&0&1
+    \end{bmatrix}
+\end{equation}
+Using the first suggested C requires derivation, while using the second suggested C recuires integration
