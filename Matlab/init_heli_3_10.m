@@ -16,14 +16,17 @@ clc;
 %%%%%%%%%%% helicopter
 Joystick_gain_x = 1;
 Joystick_gain_y = -1;
-%e_offset = 0.51;   %Helikopter 5
-%V_s0 = 7.65;       %Helikopter 5
+e_offset = 0.51;            %Helikopter 5
+V_s0 = 7.65;                %Helikopter 5
+lambda_acc_offset = -0.08;  %Helikopter 5, not meassured
+pitch_offset = 0.04;        %Helikopter 5, not meassured
+PORT = 4;                   % COM port for the IMU
 
-e_offset = 0.52;    %Helikopter 7
-V_s0 = 7.3;           %Helikopter 7
-lambda_acc_offset = -0.08; % Helikopter 7
-pitch_offset = 0.04;
-
+%e_offset = 0.52;    %Helikopter 7
+%V_s0 = 7.3;           %Helikopter 7
+%lambda_acc_offset = -0.08; % Helikopter 7
+%pitch_offset = 0.04;
+%PORT = 5;
 
 
 %%%%%%%%%%% Physical constants
@@ -118,8 +121,6 @@ R=[10,0;
 
 K=lqr(A,B,Q,R);
 
-PORT = 5;
-
 %Luenberger observer
 A_hat=[0,  1,0,0,0;
        0,  0,0,0,0;
@@ -134,9 +135,7 @@ B_hat=[0,  0;
        K_2,0;
        0,  0];
 
-C_hat=[
-       0,0,1,0,0;
-       0,0,0,0,1];
+C_hat=eye(5);
 
 
 
@@ -144,3 +143,41 @@ pole_vector=[-100,-100,-50,-50,-75];
 
 L=place(A_hat',C_hat',pole_vector).';
 
+
+
+%%%% KALMAN FILTER
+
+A_d = [
+    1,  0.002, 0,     0, 0,     0; 
+    0,      1, 0,     0, 0,     0;
+    0,      0, 1, 0.002, 0,     0;
+    0,      0, 0,     1, 0,     0;
+    0,      0, 0,     0, 1, 0.002;
+    1.7E-4, 0, 0,     0, 0,     1;
+    ];
+
+B_d = [
+    0,      0;
+    0,  0.001;
+    0,      0;
+    1.7E-4, 0;
+    0,      0;
+    0,      0;
+    ];
+
+C_d = [
+    1, 0, 0 ,0 ,0, 0;
+    0, 1, 0, 0, 0, 0;
+    0, 0, 1, 0, 0, 0;
+    0, 0, 0, 1, 0, 0;
+    %0, 0, 0, 0, 1, 0;
+    0, 0, 0, 0, 0, 1;
+    ];
+
+load('labday4/IMU_data_flying');
+IMU_flying = IMU_data;
+R_d = cov(IMU_flying);
+
+Q_d = diag([1E-6, 1E-5, 1E-6, 1E-5, 0, 1E-4]);
+
+%Q_d = Q_d * 0;

@@ -81,8 +81,8 @@ Such that
     \end{bmatrix}
 \end{equation*}
 
-Hypotheses and test plan for both the 3-state and the 5-state LQR:
-A high q/r will give a fast response, but with a high energy drainage. Can expect some overswing as that is a waste of energy. A low q/r will give a slow response where you minimize the amount of energy spent.
+\subsection{Hypotheses and test plan}
+A high q/r will give a fast response, but with a high energy drainage. Can expect some overswing as that is a waste of energy. A low q/r will give a slow response where you minimize the amount of energy spent. We also think that high isolated Q values regulates that parameter better, at the cost of the others. We also think that implemented integral action will remove standard deviaton from the system.
 
 This is our overarching test plan:
 \begin{itemize}
@@ -91,9 +91,7 @@ This is our overarching test plan:
     \item try high r
     \item try different values inside of q and r
 \end{itemize}
-
-\subsection{Three-state LQR Control}
-
+The specific test plan for the 3-state system is shown in \autoref{tab:3stateHyp}, and the 5-state is shown in \autoref{tab:5stateHyp}.
 \begin{table}[htbp]
     \centering
     \caption{Test values for 3 state LQR}
@@ -109,36 +107,8 @@ This is our overarching test plan:
         7  & 200 & 200 & 200 & 10  & 10  \\
         8 & 10  & 10  & 10  & 200 & 200 \\
     \end{tabular}
+    \label{tab:3stateHyp}
 \end{table}
-
-\begin{table}
-    \centering
-    \begin{tabular}{c|l|l}
-        Test & Hypotesis & Result \\
-        \hline
-        1 & The & the \\
-    \end{tabular}
-\end{table}
-
-% Helper function to plot subfigures fast
-% #1 = path prefix, #2 = number of figures
-\newcommand{\insertsubfigs}[2]{%
-  \foreach \i in {1,...,#2}{%
-    \begin{subfigure}{0.40\textwidth}
-      \includegraphics[width=\textwidth]{#1\i.eps}
-      \caption{Results for test \i.}
-    \end{subfigure}
-  }%
-}
-
-\begin{figure}[h!]
-    \centering
-    \insertsubfigs{figures/labday2/3state/plot_}{8}
-    \caption{Step response for the three-state LQR regulator.}
-    \label{fig:LQR_3state}
-\end{figure}
-
-\subsection{Five-state LQR Control}
 
 \begin{table}[htbp]
     \centering
@@ -157,7 +127,29 @@ This is our overarching test plan:
         9  & 200 & 200 & 200 & 200 & 200 & 10  & 10  \\
         10 & 10  & 10  & 10  & 10  & 10  & 200 & 200 \\
     \end{tabular}
+    \label{tab:5stateHyp}
 \end{table}
+% Helper function to plot subfigures fast
+% #1 = path prefix, #2 = number of figures
+\newcommand{\insertsubfigs}[2]{%
+  \foreach \i in {1,...,#2}{%
+    \begin{subfigure}{0.40\textwidth}
+      \includegraphics[width=\textwidth]{#1\i.eps}
+      \caption{Results for test \i.}
+    \end{subfigure}
+  }%
+}
+
+\subsection{Results}
+From \autoref{fig:LQR_3state}, we see that there is a lot of standard deviation in the 3 state system. We see overall better results, without standard deviation, for the 5-state regulator (\autoref{fig:LQR_5state}), as expected. In the 5-state system, the results from test 2 in \autoref{fig:LQR_5state}. were the best, which makes sense since we tested pitch, and the cost of bad pitch was proportionally higher than everything else in test 2. We also see that test 9 was better than a lot of the others with high Q, which confirmes that to increase the cost of one state, affects the other states. For instance test 3 was quite bad for the pitch.
+
+\begin{figure}[h!]
+    \centering
+    \insertsubfigs{figures/labday2/3state/plot_}{8}
+    \caption{Step response for the three-state LQR regulator.}
+    \label{fig:LQR_3state}
+\end{figure}
+
 
 
 \begin{figure}[h]

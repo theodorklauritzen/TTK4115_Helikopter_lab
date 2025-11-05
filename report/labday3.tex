@@ -1,11 +1,5 @@
 \section{Part III - Luenberger observer}
-\begin{itemize}
-    \item Introduce and motivate the task. You can include a brief summary of the different tasks in the lab-preparation assignment which was necessary to complete the lab. No extensive listing or derivation of equations are needed (you can mention, e.g., the IMU, noisy measurements, observability, state-estimation etc.).
-    \item Did you find out the minimum set of states that if measured makes the system observable? Did you experiment with this?
-    \item Include your hypothesis/test-plan for the estimator poles and explain your thought process behind it.
-    \item Include the results from the experiments that were done in the lab according to the test-plan, and any other tests you found interesting during your time in the lab. Include plots and discuss the result. This is the most important part of the report. How you structure this part of the report is up to you. 
-    \item Conclusion. Include a short paragraph summarizing the results. 
-\end{itemize}
+The goal of this task is to get familiar with the IMU, transform the measurements into the different states, and then use those states to implement a functioning Luenberger Observer. 
 
 Given the system
 \begin{equation*}
@@ -59,6 +53,7 @@ We managed to measure the pitch and elevation using the accelerometer. One limit
 
 One disadvantage of using the gyroscope to find the angle velocities is that we want to find the angle velocities in reference frame locked to the table, and not the body frame of the helicopter.  Therefore we need to transform the readings from the gyroscope from the body frame to the table frame.
 
+\subsection{Full state}
  We have chosen to use this C matrix.:
  \begin{equation}
     \mathbf{C}=
@@ -70,7 +65,7 @@ One disadvantage of using the gyroscope to find the angle velocities is that we 
         0&0&0&0&1
     \end{bmatrix}
 \end{equation}
-Then we have chosen to test different combinations of poles:
+We have decided to test these combinations of poles:
 \begin{table}[h!]
     \centering
     \begin{tabular}{c|c}
@@ -102,8 +97,8 @@ From \ref{fig:luenbergerPlot} we see that our hypothesis was somewhat right. For
 \begin{equation}
     \mathbf{\dot{\hat{x}}}=\mathbf{A\hat{x}+Bu + L}\mathbf{(y-C\hat{x}})
 \end{equation}
-
-If we only have to measure the minimum amount of states, we have to measure $e$ and $\lambda$ to observe the whole system, since this will make the system observable. This will result in the following $C$ matrix:
+\subsection{Minimum state}
+If we only have to measure the minimum amount of states, we have to measure $e$ and $\lambda$ to observe the whole system, since this still makes the system observable. This will result in the following $C$ matrix:
 \begin{equation}
     \mathbf{C}=
     \begin{bmatrix}
@@ -111,5 +106,4 @@ If we only have to measure the minimum amount of states, we have to measure $e$ 
         0&0&0&0&1
     \end{bmatrix}
 \end{equation}
-Using the first suggested C requires derivation, while using the second suggested C recuires integration.
-Result: None of these matrices worked.
+When we tried to apply this in the lab, the system did not work at all.

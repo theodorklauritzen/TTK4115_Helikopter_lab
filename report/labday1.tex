@@ -1,15 +1,7 @@
 \section{Part I - Monovariable control}
-
-\begin{itemize}
-    \item Introduce and motivate the task. You can include a brief summary of the different tasks in the lab-preparation assignment which was necessary to complete the lab. No extensive listing or derivation of equations are needed (you can mention, e.g., linearization and pole-placement, but don't derive the linearized equations etc.). 
-    \item Include your hypothesis/test-plan for the poles $\lambda_{1}$ and $\lambda_{2}$ and explain your thought process.
-    \item Include the results from the experiments that were done in the lab according to the test-plan, and any other experiments you found interesting during your time in the lab. Include plots and discuss the result. This is the most important part of the report. How you structure this part of the report is up to you. 
-    \item Conclusion. Include a short paragraph summarizing the results. 
-\end{itemize}
-
 The goal of this task is to control the pitch of the helicopter with a PD-regulator, and set the poles to specific values. To set the poles a model of he helicopter is needed, which was prepared in the preparations. The model was derived by physical laws, and then linearized.
 
-The test plan is to test the step response of the helicopter with different pole placement. To test the step response the reference is set to $0.5$ after $10$ second, and then to $0$ after 15 seconds, and the test is ended after $30$ seconds. The regulator parementers was calculated based on these poles. \autoref{tab:ld1_testplan} shows the plan of which poles to test.
+The test plan is to test the step response of the helicopter with different pole placement. To test the step response the reference is set to $0.5$ after $10$ second, and then to $0$ after 15 seconds, and the test is ended after $30$ seconds. The regulator parementers was calculated based on these poles. \autoref{tab:ld1:testplan1} shows the plan of which poles to test.
 
 \begin{table}[h]
     \centering
@@ -22,7 +14,7 @@ The test plan is to test the step response of the helicopter with different pole
         pol(1, 1) & Unstable \\
     \end{tabular}
     \caption{The different poles to test.}
-    \label{tab:ld1:testplan}
+    \label{tab:ld1:testplan1}
 \end{table}
 
 The points were picked to show different types of responses. The expected result is that poles in the right half-plane will result in a unstable system, where the pitch will go further and further away from the reference.
@@ -30,48 +22,59 @@ The points were picked to show different types of responses. The expected result
 The points that are not at the real axis is expected to create som oscilations. In the test case where the poles are at the imaginary axis, standing oscilations are expected.
 
 \subsection{Results}
+\begin{figure}
 
-\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/-1,-1.eps}
-    \caption{The plot shows the response with poles set to $-1$ and $-1$.}
-    \label{fig:ld1:poles_-1,-1}
+    \begin{subfigure}{0.40\textwidth}
+      \includegraphics[width=\textwidth]{figures/labday1/-1,-1.eps}
+      \caption{Poles at $-1$ and $-1$}
+      \label{subfig:poles-1,-1}
+    \end{subfigure}
+
+    \begin{subfigure}{0.40\textwidth}
+        \includegraphics[width=\textwidth]{figures/labday1/-0.5,-2.eps}
+        \caption{Poles at $-0.5$ and $-2$.}
+        \label{fig:ld1:poles_-0.5,-2}
+    \end{subfigure}
+    
+    \begin{subfigure}{0.40\textwidth}
+        \includegraphics[width=\textwidth]{figures/labday1/-0.5+j,-0.5-j.eps}
+        \caption{Poles at $-0.5+j$ and $-0.5 - j$.}
+        \label{subfig:ld1:poles_-0.5+j,-0.5-j}
+    \end{subfigure}
+
+    \begin{subfigure}{0.40\textwidth}
+        \includegraphics[width=\textwidth]{figures/labday1/j,-j.eps}
+        \caption{Poles at $j$ and $-j$}
+        \label{fig:ld1:poles_j,-j}   
+    \end{subfigure}
+        
+    \begin{subfigure}{0.40\textwidth}
+        \includegraphics[width=\textwidth]{figures/labday1/1,1.eps}
+        \caption{Poles at $1$ and $1$}
+    \label{fig:ld1:poles_1,1}
+    \end{subfigure}
+    
+    \caption{Results for different poles}
+    \label{fig:labday1resultsdifferentpoles}
+    
 \end{figure}
 
-\autoref{fig:ld1:poles_-1,-1} shows a stable response that rises fast, however the system never reaches the target. Indicating a stationary offset. In addition it was not expected that the pitch would go bellow $0$ after the last step function.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5+j,-0.5-j.eps}
-    \caption{The plot shows the response with poles set to $-0.5+j$ and $-0.5 - j$.}
-    \label{fig:ld1:poles_-0.5+j,-0.5-j}
-\end{figure}
+\autoref{subfig:poles-1,-1} shows a stable response that rises quickly; however, the system never reaches the target. Indicating a stationary offset. In addition it was not expected that the pitch would go bellow $0$ after the last step function.
 
-\autoref{fig:ld1:poles_-0.5+j,-0.5-j} shows a response that rises faster than in \autoref{fig:ld1:poles_-1,-1}, and with minimal oscialtions. However these oscilation can be noise.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/-0.5,-2.eps}
-    \caption{The plot shows the response with poles set to $-0.5$ and $-2$.}
-    \label{fig:ld1:poles_-0.5,-2}
-\end{figure}
+\autoref{subfig:ld1:poles_-0.5+j,-0.5-j} shows a response that rises faster than in \autoref{fig:ld1:poles_-1,-1}, and with minimal oscialtions. However these oscilation can be noise.
+
 
 \autoref{fig:ld1:poles_-0.5,-2} show a response that more slowly reaches the reference. This can be a result of a over dampened system, which is expected with two negative poles at the real axis.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/j,-j.eps}
-    \caption{The plot shows the response with poles set to $j$ and $-j$. The experminet was manually stopped, after a crash.}
-    \label{fig:ld1:poles_j,-j}
-\end{figure}
 
-\autoref{fig:ld1:poles_j,-j} shows a response with large oscialtions. The expected response is standing oscilations, which almost matches the actual response. However the oscialtions start before the step in the reference, which can be a result of some disturbances in the system. The actual oscialtions was also increasing in amplitude a bit, which led the system to crash, therefore the experiment was stopped a bit early.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/labday1/1,1.eps}
-    \caption{The plot shows the response with poles set to $1$ and $1$. The experiment was manually stopped, after multiple crashes.}
-    \label{fig:ld1:poles_1,1}
-\end{figure}
+\autoref{fig:ld1:poles_j,-j} shows a response with large oscialtions. The experiment was manually stopped after the helicopter crashed. The expected response is standing oscilations, which almost matches the actual response. However the oscialtions start before the step in the reference, which can be a result of some disturbances in the system. The actual oscialtions was also increasing in amplitude a bit, which led the system to crash, therefore the experiment was stopped a bit early.
+
+
 
 \autoref{fig:ld1:poles_1,1} show a unstable plot, where a small disturbance make the pitch increase exponentially. This lead to a fast crash and the experiment was stopped. The result was expected since the poles was in the right half-plane.
+
+Our hypotheses were somewhat right, except that the purely imaginary poles became unstable. Also the fact that poles at $-0.5 +j$ and $0.5 + j$ gave the best response was not expected.
